@@ -23,7 +23,7 @@ public class UserProducer {
         emailDto.setId(userModel.getId());
         emailDto.setEmailTo(userModel.getEmail());
         emailDto.setSubject("Cadastro realizado");
-        emailDto.setText(userModel.getName() + ", Mensagem de texto \n Deu tudo certo na mensagem de texto.");
+        emailDto.setText(userModel.getName() + ", \n Mensagem de texto \n Deu tudo certo na mensagem de texto.");
         rabbitTemplate.convertAndSend("",routingKey, emailDto);
     }
 
