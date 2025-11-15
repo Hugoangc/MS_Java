@@ -15,15 +15,17 @@ public class UserProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    @Value(value ="${broker.queue.email.name")
+    @Value(value ="${broker.queue.email.name}")
     private String routingKey;
 
     public void publishMessageEmail(UserModel userModel){
         var emailDto = new EmailDto();
-        emailDto.setId(userModel.getId());
+        emailDto.setUserId(userModel.getId());
         emailDto.setEmailTo(userModel.getEmail());
-        emailDto.setSubject("Cadastro realizado");
-        emailDto.setText(userModel.getName() + ", \n Mensagem de texto \n Deu tudo certo na mensagem de texto.");
+        emailDto.setSubject("E-mail enviado com sucesso");
+        emailDto.setText("Caro " + userModel.getName() + ", \n " +
+                "O teste de envio de e-mail utilizando microsservices e RabbitMQ deu certo. \n\n " +
+                "Tenha uma ótima semana. \n");
         rabbitTemplate.convertAndSend("",routingKey, emailDto);
     }
 
